@@ -1,27 +1,25 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
+from articales.articales import Articles
+from flights.flights import Flights
+
+# with Articles() as art:
+#     art.land_first_page()
+#     art.get_all_articales()
+#     print("Exiting...")
 
 
-PATH = r"./chromedriver"
-driver = webdriver.Chrome(PATH)
+with Flights() as fli:
+    fli.land_first_page()
+    fli.get_complited_flights_table()
+    fli.stop_auto_update_page()
+    fli.save_filghts_data_in_json()
+    print("Exiting...")
 
-driver.get("https://www.bbc.com/")
 
-# search = driver.find_element(By.CLASS_NAME, "media__link")
-# print(search.text)
-driver.quit()
+# save_articles = Articles()
+# save_articles.get_all_articales()
 
-# wait = WebDriverWait(driver, 10)
-# element = wait.until(EC.element_to_be_clickable((By.ID, 'someid')))
-try:
-    media__link = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "media__link"))
-    )
 
-    print(type(media__link))
-    print(media__link)
-finally:
-    driver.quit()
+# search = driver.find_elements(By.CLASS_NAME, "media__link")
+# print([i.text for i in search])
+# driver.quit()
