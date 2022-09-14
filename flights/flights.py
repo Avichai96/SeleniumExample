@@ -48,13 +48,13 @@ class Flights(webdriver.Chrome):
             auto_update_toggle.click()
 
     def save_filghts_data_in_json(self):
-        filename = self.create_filename()
-        flights_data = self.get_flighte_table_data()
+        filename = self._create_filename()
+        flights_data = self._get_flighte_table_data()
         if flights_data:
             with open(rf"../FlightsData/{filename}.json", "w", encoding="utf8") as outfile:
                 json.dump(flights_data, outfile, ensure_ascii=False)
 
-    def get_flighte_table_data(self):
+    def _get_flighte_table_data(self):
         filghts_data_list = []
         table_data = WebDriverWait(self, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//*[starts-with(@class, 'flight_row')]")))
         for index, item in enumerate(table_data):
@@ -84,5 +84,5 @@ class Flights(webdriver.Chrome):
                 
         return filghts_data_list
 
-    def create_filename(self):
+    def _create_filename(self):
         return datetime.now().strftime("%Y%m%d%H%M%S")
